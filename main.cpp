@@ -1,131 +1,32 @@
 #include <iostream>
-#include "testes_dominios.h"
-#include "testes_entidades.h"
+#include "./acesso_db.h"
+#include "./bibliotecas/dominios.h"
+#include "./bibliotecas/entidades.h"
 
 using namespace std;
 
 int main()
 {
-    teste_classe testes_unitarios_classe;
-    teste_codigo testes_unitarios_codigo;
-    teste_data testes_unitarios_data;
-    teste_matricula testes_unitarios_matricula;
-    teste_resultado testes_unitarios_resultado;
-    teste_senha testes_unitarios_senha;
-    teste_telefone testes_unitarios_telefone;
-    teste_texto testes_unitarios_texto;
+    ComandoCriarTabelas start;
+    start.executar();
 
-    TesteDesenvolvedor testes_unitarios_desenvolvedor;
-    TesteTeste testes_unitarios_teste;
-    TesteCasoDeTeste testes_unitarios_caso_de_teste;
-
-    switch (testes_unitarios_desenvolvedor.run())
-    {
-    case TesteDesenvolvedor::SUCESSO:
-        cout << "SUCESSO-DESENVOLVEDOR" << endl;
-        break;
-    case TesteDesenvolvedor::FALHA:
-        cout << "FALHA-DESENVOLVEDOR" << endl;
-        break;
-    }
+    Texto nome;
+    Senha senha;
+    Telefone telefone;
+    Matricula matricula;
     
-    switch (testes_unitarios_teste.run())
-    {
-    case TesteTeste::SUCESSO:
-        cout << "SUCESSO-TESTE" << endl;
-        break;
-    case TesteTeste::FALHA:
-        cout << "FALHA-TESTE" << endl;
-        break;
-    }
+    senha.set_valor_dominio("AmO2@&");
+    matricula.set_valor_dominio("1234566");
+    telefone.set_valor_dominio("+1234567");
+    nome.set_valor_dominio("texto para fins test");
 
-    switch (testes_unitarios_caso_de_teste.run())
-    {
-    case TesteTeste::SUCESSO:
-        cout << "SUCESSO-CASO-DE-TESTE" << endl;
-        break;
-    case TesteTeste::FALHA:
-        cout << "FALHA-CASO-DE-TESTE" << endl;
-        break;
-    }
-    
-    switch (testes_unitarios_classe.run())
-    {
-    case teste_classe::SUCESSO:
-        cout << "SUCESSO-CLASSE" << endl;
-        break;
-    case teste_classe::FALHA:
-        cout << "FALHA-CLASSE" << endl;
-        break;
-    }
+    Desenvolvedor teste;
 
-    switch (testes_unitarios_codigo.run())
-    {
-    case teste_codigo::SUCESSO:
-        cout << "SUCESSO-CODIGO" << endl;
-        break;
-    case teste_codigo::FALHA:
-        cout << "FALHA-CODIGO" << endl;
-        break;
-    }
+    teste.set_nome(nome);
+    teste.set_senha(senha);
+    teste.set_telefone(telefone);
+    teste.set_matricula(matricula);
 
-    switch (testes_unitarios_data.run())
-    {
-    case teste_data::SUCESSO:
-        cout << "SUCESSO-DATA" << endl;
-        break;
-    case teste_data::FALHA:
-        cout << "FALHA-DATA" << endl;
-        break;
-    }
-
-    switch (testes_unitarios_matricula.run())
-    {
-    case teste_matricula::SUCESSO:
-        cout << "SUCESSO-MATRICULA" << endl;
-        break;
-    case teste_matricula::FALHA:
-        cout << "FALHA-MATRICULA" << endl;
-        break;
-    }
-
-    switch (testes_unitarios_resultado.run())
-    {
-    case teste_resultado::SUCESSO:
-        cout << "SUCESSO-RESULTADO" << endl;
-        break;
-    case teste_resultado::FALHA:
-        cout << "FALHA-RESULTADO" << endl;
-        break;
-    }
-
-    switch (testes_unitarios_senha.run())
-    {
-    case teste_senha::SUCESSO:
-        cout << "SUCESSO-SENHA" << endl;
-        break;
-    case teste_senha::FALHA:
-        cout << "FALHA-SENHA" << endl;
-        break;
-    }
-
-    switch (testes_unitarios_telefone.run())
-    {
-    case teste_telefone::SUCESSO:
-        cout << "SUCESSO-TELEFONE" << endl;
-        break;
-    case teste_telefone::FALHA:
-        cout << "FALHA-TELEFONE" << endl;
-        break;
-    }
-
-    switch (testes_unitarios_texto.run())
-    {
-    case teste_texto::SUCESSO:
-        cout << "SUCESSO-TEXTO" << endl;
-        break;
-    case teste_texto::FALHA:
-        cout << "FALHA-TEXTO" << endl;
-        break;
-    }
+    ComandoCadastrarDesenvolvedor cadastrar_desenvolvedor(teste);
+    cout << cadastrar_desenvolvedor.executar() << endl;
 }
