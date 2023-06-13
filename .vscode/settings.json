@@ -1,12 +1,7 @@
 {
     "files.associations": {
         "*.css": "tailwindcss",
-        "string": "cpp",
-        "array": "cpp",
-        "string_view": "cpp",
-        "regex": "cpp",
-        "deque": "cpp",
-        "list": "cpp",
-        "vector": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }

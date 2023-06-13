@@ -1,14 +1,12 @@
 #include <list>
 #include <string>
-#include <stdio.h>
-#include <iostream>
 #include "./bibliotecas/sqlite3.h"
 #include "./bibliotecas/dominios.h"
 #include "./bibliotecas/entidades.h"
 
 using namespace std;
 
-//--------------------------------- CONFIGURAÇÃO --------------------------------------
+//--------------------------------- Configuracao ---------------------------------------
 
 //Classe ElementoResultado
 
@@ -50,14 +48,14 @@ class ComandoSQL {
                 ComandoSQL() { nome_banco_dados = "banco_de_dados.db";};
 };
 
-//------------------------------------ Start --------------------------------------------
+//------------------------------------ Provisorio ---------------------------------------
 
 class ComandoCriarTabelas:public ComandoSQL {
     public:
         ComandoCriarTabelas();
 };
 
-//------------------------------------ SHOW --------------------------------------------
+//------------------------------------ Retornar -----------------------------------------
 
 //Classe ComandoPesquisarSenha
 
@@ -91,7 +89,7 @@ class ComandoPesquisarDesenvolvedor:public ComandoSQL {
         ComandoPesquisarDesenvolvedor(Matricula);
 };
 
-//------------------------------------- CREATE -----------------------------------------
+//------------------------------------- Criar -----------------------------------------
 
 //Classe ComandoPesquisarDesenvolvedor
 
@@ -114,7 +112,7 @@ class ComandoCadastrarCasoTeste:public ComandoSQL {
                 ComandoCadastrarCasoTeste(CasoTeste);
 };
 
-//------------------------------------- UPDATE -----------------------------------------
+//------------------------------------- Atualizar -----------------------------------------
 
 //Classe ComandoAtualizarDesenvolvedor
 
@@ -137,7 +135,7 @@ class ComandoAtualizarCasoTeste:public ComandoSQL {
                 ComandoAtualizarCasoTeste(CasoTeste);
 };
 
-//------------------------------------- DELETE -----------------------------------------
+//------------------------------------- Deletar -----------------------------------------
 
 //Classe ComandoDeletarDesenvolvedor
 

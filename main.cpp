@@ -1,12 +1,20 @@
-#include <iostream>
+// #include "./controladoras/apresentacao/teste.h"
+#include "./controladoras/apresentacao/controle.h"
+// #include "./controladoras/apresentacao/caso_teste.h"
+#include "./controladoras/apresentacao/autenticacao.h"
+// #include "./controladoras/apresentacao/desenvolvedor.h"
+
+// #include "./controladoras/servico/teste.h"
+// #include "./controladoras/servico/caso_teste.h"
+#include "./controladoras/servico/autenticacao.h"
+// #include "./controladoras/servico/desenvolvedor.h"
+
 #include "./acesso_db.h"
-#include "./bibliotecas/dominios.h"
-#include "./bibliotecas/entidades.h"
 
 using namespace std;
 
-int main()
-{
+int main() {
+
     ComandoCriarTabelas start;
     start.executar();
 
@@ -28,5 +36,35 @@ int main()
     teste.set_matricula(matricula);
 
     ComandoCadastrarDesenvolvedor cadastrar_desenvolvedor(teste);
-    cout << cadastrar_desenvolvedor.executar() << endl;
+    cadastrar_desenvolvedor.executar();
+
+    // ApresentacaoTeste *apresentacao_teste;
+    // ApresentacaoCasoTeste *apresentacao_caso_teste;
+    ApresentacaoAutenticacao *apresentacao_autenticacao;
+    // ApresentacaoDesenvolvedor *apresentacao_desenvolvedor;
+
+    // apresentacao_teste = new ApresentacaoTeste();
+    // apresentacao_caso_teste = new ApresentacaoCasoTeste();
+    apresentacao_autenticacao = new ApresentacaoAutenticacao();
+    // apresentacao_desenvolvedor = new ApresentacaoDesenvolvedor();
+
+    // InterfaceServicoTeste *servico_teste;
+    InterfaceServicoAutenticacao *servico_autenticacao;
+    // InterfaceServicoCasoTeste *servico_caso_teste;
+    // InterfaceServicoDesenvolvedor *servico_desenvolvedor;
+
+    // servico_teste = new  ServicoTeste();
+    // servico_caso_teste = new ServicoCasoTeste();
+    servico_autenticacao = new  ServicoAutenticacao();
+    // servico_desenvolvedor = new  ServicoDesenvolvedor();
+
+    ApresentacaoControle *apresentacao_controle;
+    apresentacao_controle = new ApresentacaoControle();
+
+    apresentacao_autenticacao ->set_servico_autenticacao(servico_autenticacao);
+    apresentacao_controle->set_apresentacao_autenticacao(apresentacao_autenticacao);
+
+    apresentacao_controle->executar();
+
+    return 0;
 }

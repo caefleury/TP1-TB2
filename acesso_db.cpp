@@ -1,4 +1,5 @@
 #include "acesso_db.h"
+#include <iostream>
 
 //--------------------------------- CONFIGURAÇÃO --------------------------------------
 
@@ -269,7 +270,6 @@ ComandoCadastrarDesenvolvedor::ComandoCadastrarDesenvolvedor(Desenvolvedor desen
     comando_sql += "', '";
     comando_sql += desenvolvedor.get_senha().get_valor_dominio();
     comando_sql += "')";
-    cout << comando_sql << endl;
 };
 
 //Metodos da Classe ComandoCadastrarTeste

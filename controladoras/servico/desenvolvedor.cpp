@@ -1,11 +1,12 @@
 #include "./desenvolvedor.h"
+#include "../../acesso_db.h"
 
-bool ServicoDesenvolvedor::cadastrar(Desenvolvedor desenvolvedor) {
+bool ServicoDesenvolvedor::criar_desenvolvedor(Desenvolvedor desenvolvedor) {
     ComandoCadastrarDesenvolvedor cadastrar_desenvolvedor(desenvolvedor);
     return cadastrar_desenvolvedor.executar();
 }
 
-Desenvolvedor ServicoDesenvolvedor::recuperar(Matricula matricula) {
+Desenvolvedor ServicoDesenvolvedor::retornar_desenvolvedor(Matricula matricula) {
     ComandoPesquisarDesenvolvedor pesquisar_desenvovedor(matricula);
     pesquisar_desenvovedor.executar();
     Desenvolvedor desenvolvedor;
@@ -13,12 +14,12 @@ Desenvolvedor ServicoDesenvolvedor::recuperar(Matricula matricula) {
     return desenvolvedor;
 }
 
-bool ServicoDesenvolvedor::alterar(Desenvolvedor desenvolvedor) {
+bool ServicoDesenvolvedor::atualizar_desenvolvedor(Desenvolvedor desenvolvedor) {
     ComandoAtualizarDesenvolvedor atualizar_desenvolvedor(desenvolvedor);
     return atualizar_desenvolvedor.executar();
 }
 
-bool ServicoDesenvolvedor::descadastrar(Matricula matricula) {
+bool ServicoDesenvolvedor::deletar_desenvolvedor(Matricula matricula) {
     ComandoDeletarDesenvolvedor deletar_desenvolvedor(matricula);
     return deletar_desenvolvedor.executar();
 }
