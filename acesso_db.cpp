@@ -262,13 +262,13 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
 ComandoCadastrarDesenvolvedor::ComandoCadastrarDesenvolvedor(Desenvolvedor desenvolvedor) {
     comando_sql = "INSERT INTO desenvolvedores VALUES (";
     comando_sql += "'";
-    comando_sql += desenvolvedor.get_nome().get_valor_dominio();
-    comando_sql += "', '";
     comando_sql += desenvolvedor.get_matricula().get_valor_dominio();
     comando_sql += "', '";
-    comando_sql += desenvolvedor.get_telefone().get_valor_dominio();
+    comando_sql += desenvolvedor.get_nome().get_valor_dominio();
     comando_sql += "', '";
     comando_sql += desenvolvedor.get_senha().get_valor_dominio();
+    comando_sql += "', '";
+    comando_sql += desenvolvedor.get_telefone().get_valor_dominio();
     comando_sql += "')";
 };
 
