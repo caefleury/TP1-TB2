@@ -316,10 +316,12 @@ ComandoCadastrarCasoTeste::ComandoCadastrarCasoTeste(CasoTeste caso_teste) {
 
 ComandoAtualizarDesenvolvedor::ComandoAtualizarDesenvolvedor(Desenvolvedor desenvolvedor) {
     comando_sql = "UPDATE desenvolvedores ";
-    comando_sql += "SET nome = '" + desenvolvedor.get_nome().get_valor_dominio();
-    comando_sql += "', telefone = '" + desenvolvedor.get_telefone().get_valor_dominio();
-    comando_sql += "', senha = '" + desenvolvedor.get_senha().get_valor_dominio();
     comando_sql += "' WHERE matricula = '" + desenvolvedor.get_matricula().get_valor_dominio(); + "'";
+    comando_sql += "SET nome = '" + desenvolvedor.get_nome().get_valor_dominio();
+    comando_sql += "', senha = '" + desenvolvedor.get_senha().get_valor_dominio();
+    comando_sql += "', telefone = '" + desenvolvedor.get_telefone().get_valor_dominio();
+
+
 };
 
 //Metodos da Classe ComandoAtualizarTeste

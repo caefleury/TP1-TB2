@@ -13,7 +13,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 
     ComandoCriarTabelas start;
     start.executar();
@@ -55,16 +56,16 @@ int main() {
 
     // servico_teste = new  ServicoTeste();
     // servico_caso_teste = new ServicoCasoTeste();
-    servico_autenticacao = new  ServicoAutenticacao();
-    servico_desenvolvedor = new  ServicoDesenvolvedor();
+    servico_autenticacao = new ServicoAutenticacao();
+    servico_desenvolvedor = new ServicoDesenvolvedor();
 
     ApresentacaoControle *apresentacao_controle;
     apresentacao_controle = new ApresentacaoControle();
 
-    apresentacao_autenticacao ->set_servico_autenticacao(servico_autenticacao);
+    apresentacao_autenticacao->set_servico_autenticacao(servico_autenticacao);
     apresentacao_controle->set_apresentacao_autenticacao(apresentacao_autenticacao);
 
-    apresentacao_desenvolvedor ->set_servico_desenvolvedor(servico_desenvolvedor);
+    apresentacao_desenvolvedor->set_servico_desenvolvedor(servico_desenvolvedor);
     apresentacao_controle->set_apresentacao_desenvolvedor(apresentacao_desenvolvedor);
 
     apresentacao_controle->executar();
