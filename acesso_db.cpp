@@ -219,12 +219,21 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
     Desenvolvedor desenvolvedor;
     ElementoResultado resultado;
 
+    // Remover matricula;
+    if (lista_resultado.empty())
+        throw "not found";
+    resultado = lista_resultado.back();
+    lista_resultado.pop_back();
+    matricula.set_valor_dominio(resultado.get_valor_coluna());
+
+
     // Remover nome;
     if (lista_resultado.empty())
         throw "not found";
     resultado = lista_resultado.back();
     lista_resultado.pop_back();
     nome.set_valor_dominio(resultado.get_valor_coluna());
+
 
     // Remover senha;
     if (lista_resultado.empty())
@@ -233,6 +242,7 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
     lista_resultado.pop_back();
     senha.set_valor_dominio(resultado.get_valor_coluna());
 
+
     // Remover telefone;
     if (lista_resultado.empty())
         throw "not found";
@@ -240,15 +250,11 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
     lista_resultado.pop_back();
     telefone.set_valor_dominio(resultado.get_valor_coluna());
 
-    // Remover matricula;
-    if (lista_resultado.empty())
-        throw "not found";
-    resultado = lista_resultado.back();
-    lista_resultado.pop_back();
-    matricula.set_valor_dominio(resultado.get_valor_coluna());
 
-    desenvolvedor.set_nome(nome);
     desenvolvedor.set_senha(senha);
+    desenvolvedor.set_nome(nome);
+
+
     desenvolvedor.set_telefone(telefone);
     desenvolvedor.set_matricula(matricula);
 

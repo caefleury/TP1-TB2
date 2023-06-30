@@ -91,7 +91,7 @@ class ComandoPesquisarDesenvolvedor:public ComandoSQL {
 
 //------------------------------------- Criar -----------------------------------------
 
-//Classe ComandoPesquisarDesenvolvedor
+//Classe ComandoCadastrarDesenvolvedor
 
 class ComandoCadastrarDesenvolvedor:public ComandoSQL {
         public:

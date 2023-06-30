@@ -1,5 +1,6 @@
 #include "./desenvolvedor.h"
 #include "../../acesso_db.h"
+#include <iostream>
 
 bool ServicoDesenvolvedor::criar_desenvolvedor(Desenvolvedor desenvolvedor) {
     ComandoCadastrarDesenvolvedor cadastrar_desenvolvedor(desenvolvedor);
@@ -7,10 +8,10 @@ bool ServicoDesenvolvedor::criar_desenvolvedor(Desenvolvedor desenvolvedor) {
 }
 
 Desenvolvedor ServicoDesenvolvedor::retornar_desenvolvedor(Matricula matricula) {
-    ComandoPesquisarDesenvolvedor pesquisar_desenvovedor(matricula);
-    pesquisar_desenvovedor.executar();
+    ComandoPesquisarDesenvolvedor pesquisar_desenvolvedor(matricula);
+    pesquisar_desenvolvedor.executar();
     Desenvolvedor desenvolvedor;
-    desenvolvedor = pesquisar_desenvovedor.get_resultado();
+    desenvolvedor = pesquisar_desenvolvedor.get_resultado();
     return desenvolvedor;
 }
 
