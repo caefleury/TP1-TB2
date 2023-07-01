@@ -65,9 +65,9 @@ void ApresentacaoControle::executar(){
                                     getchar();
                                 }
                                 break;
-                            // case 2:
-                            //     apresentacao_teste->executar(matricula);
-                            //     break;
+                            case 2:
+                                apresentacao_teste->executar(matricula);
+                                break;
                             // case 3:
                             //     apresentacao_caso_teste->executar(matricula);
                             //     break;

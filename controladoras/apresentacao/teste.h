@@ -13,7 +13,7 @@ class ApresentacaoTeste:public InterfaceApresentacaoTeste{
         InterfaceServicoTeste *servicos_teste;
     public:
         void criar_teste() override;
-        bool executar(Codigo) override;
+        bool executar(Matricula) override;
         void set_servico_teste(InterfaceServicoTeste*) override;
 };
 

@@ -1,64 +1,81 @@
 #include <iostream>
 #include "./teste.h"
+#include <limits>
 
-void ApresentacaoTeste::set_servico_teste(InterfaceServicoTeste *servicos_teste){
+void ApresentacaoTeste::set_servico_teste(InterfaceServicoTeste *servicos_teste)
+{
     this->servicos_teste = servicos_teste;
 }
 
-bool ApresentacaoTeste::executar(Codigo codigo) {
+bool ApresentacaoTeste::executar(Matricula matricula)
+{
     char texto1[] = "Selecione um dos servicos : ";
-    char texto2[] = "1 - Consultar informações do teste.";
-    char texto3[] = "2 - Editar teste.";
-    char texto4[] = "3 - Excluir teste.";
-    char texto5[] = "4 - Retornar.";
+    char texto2[] = "1 - Criar teste";
+    char texto3[] = "2 - Listar seus testes";
+    char texto4[] = "3 - Consultar informacoes do teste pelo codigo.";
+    char texto5[] = "4 - Editar teste.";
+    char texto6[] = "5 - Excluir teste.";
+    char texto7[] = "6 - Retornar.";
 
     int campo;
 
     bool apresentar = true;
 
-    while(apresentar) {
+    while (apresentar)
+    {
 
         cout << texto1 << endl;
         cout << texto2 << endl;
         cout << texto3 << endl;
         cout << texto4 << endl;
         cout << texto5 << endl;
+        cout << texto6 << endl;
+        cout << texto7 << endl;
 
         campo = getchar() - 48;
-         switch(campo){
-            case 1:
-                retornar_teste(codigo);
-                break;
-            case 2:
-                atualizar_teste(codigo);
-                break;
-            case 3:
-                if(deletar_teste(codigo)){
-                    cout << "Teste excluido com sucesso. Voce nao vera o teste novamente." << endl;
-                    getchar();
-                    return false;
-                }
-                break;
-            case 4:
-                apresentar = false;
-                break;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        switch (campo)
+        {
+        case 1:
+            criar_teste();
+            break;
+        /*
+        case 2:
+            retornar_teste(codigo);
+            break;
+        case 3:
+            atualizar_teste(codigo);
+            break;
+        case 4:
+            if(deletar_teste(codigo)){
+                cout << "Teste excluido com sucesso. Voce nao vera o teste novamente." << endl;
+                getchar();
+                return false;
+            }
+            break;
+        */
+        case 5:
+            apresentar = false;
+            break;
         }
     }
     return true;
 }
 
-bool ApresentacaoTeste::deletar_teste(Codigo codigo) {
+bool ApresentacaoTeste::deletar_teste(Codigo codigo)
+{
     int campo;
     cout << "Tem certeza que deseja excluir esse teste?" << endl;
     cout << "1 - Sim, quero excluir." << endl;
     cout << "2 - Nao tenho certeza." << endl;
     campo = getchar() - 48;
-    if (campo == 2){
+    if (campo == 2)
+    {
         cout << "Processo cancelado." << endl;
         getchar();
         return false;
     }
-    if(servicos_teste->deletar_teste(codigo))
+    if (servicos_teste->deletar_teste(codigo))
         return true;
 
     cout << "Falha na exclusao. Tente novamente." << endl;
@@ -66,7 +83,8 @@ bool ApresentacaoTeste::deletar_teste(Codigo codigo) {
     return false;
 }
 
-void ApresentacaoTeste::criar_teste() {
+void ApresentacaoTeste::criar_teste()
+{
     char texto1[] = "Preencha os seguintes campos:";
     char texto2[] = "Nome            :";
     char texto3[] = "Classe          :";
@@ -84,7 +102,8 @@ void ApresentacaoTeste::criar_teste() {
 
     bool apresentar = true;
 
-    while(apresentar){
+    while (apresentar)
+    {
         cout << "-----CRIACAO DE TESTE-----" << endl;
         cout << texto1 << endl;
         cout << texto2 << " ";
@@ -94,16 +113,20 @@ void ApresentacaoTeste::criar_teste() {
         cout << texto4 << " ";
         getline(cin, campo3);
 
-        try {
+        try
+        {
             nome.set_valor_dominio(campo1);
             classe.set_valor_dominio(campo2);
             codigo.set_valor_dominio(campo3);
             apresentar = false;
-        } catch(invalid_argument &exp) {
+        }
+        catch (invalid_argument &exp)
+        {
             cout << texto5 << endl;
             cout << "1 - Para tentar novamente." << endl;
             cout << "2 - Para retornar." << endl;
             campo = getchar() - 48;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo == 2)
                 return;
         }
@@ -115,17 +138,21 @@ void ApresentacaoTeste::criar_teste() {
     teste.set_codigo(codigo);
     teste.set_classe(classe);
 
-    if(servicos_teste->criar_teste(teste)) {
+    if (servicos_teste->criar_teste(teste))
+    {
         cout << texto6 << endl;
         getchar();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
     }
     cout << texto7 << endl;
     getchar();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return;
 }
 
-void ApresentacaoTeste::retornar_teste(Codigo codigo) {
+void ApresentacaoTeste::retornar_teste(Codigo codigo)
+{
     Teste teste;
     teste = servicos_teste->retornar_teste(codigo);
 
@@ -138,7 +165,8 @@ void ApresentacaoTeste::retornar_teste(Codigo codigo) {
     getchar();
 }
 
-void ApresentacaoTeste::atualizar_teste(Codigo codigo) {
+void ApresentacaoTeste::atualizar_teste(Codigo codigo)
+{
     Texto nome;
     Teste teste;
     Classe classe;
@@ -148,8 +176,10 @@ void ApresentacaoTeste::atualizar_teste(Codigo codigo) {
     string campo1, campo2;
     bool apresentar = true;
 
-    while(apresentar){
-        try {
+    while (apresentar)
+    {
+        try
+        {
             cout << "-----ATUALIZACAO DOS DADOS-----" << endl;
             cout << "---------DADOS ATUAIS---------" << endl;
             cout << "Nome    : " << teste.get_nome().get_valor_dominio() << endl;
@@ -170,7 +200,9 @@ void ApresentacaoTeste::atualizar_teste(Codigo codigo) {
             teste.set_classe(classe);
 
             apresentar = false;
-        } catch(invalid_argument &exp){
+        }
+        catch (invalid_argument &exp)
+        {
             cout << "Novos dados invalidos. Insira novamente." << endl;
             cout << "1 - Para tentar novamente." << endl;
             cout << "2 - Para retornar." << endl;

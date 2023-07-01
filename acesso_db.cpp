@@ -58,14 +58,35 @@ int ComandoSQL::callback(void *not_used, int argc, char **valor_coluna, char **n
     return 0;
 };
 
-//------------------------------------ Start --------------------------------------------
+//------------------------------------ Criar tabelas --------------------------------------------
 
-ComandoCriarTabelas::ComandoCriarTabelas(){
-    comando_sql = "CREATE TABLE desenvolvedores("  \
-    "MATRICULA INT     PRIMARY KEY NOT NULL," \
-    "NOME      TEXT    NOT NULL," \
-    "SENHA     TEXT    NOT NULL," \
-    "TELEFONE  TEXT    NOT NULL);";
+ComandoCriarTabelaDesenvolvedores::ComandoCriarTabelaDesenvolvedores(){
+    comando_sql ="CREATE TABLE desenvolvedores("  \
+                 "MATRICULA INT     PRIMARY KEY NOT NULL," \
+                 "NOME      TEXT    NOT NULL," \
+                 "SENHA     TEXT    NOT NULL," \
+                 "TELEFONE  TEXT    NOT NULL);";
+}
+
+ComandoCriarTabelaTestes::ComandoCriarTabelaTestes(){
+    comando_sql ="CREATE TABLE testes("\
+                 "CODIGO           INT  PRIMARY KEY NOT NULL,"\
+                 "NOME             TEXT NOT NULL,"\
+                 "CLASSE           TEXT NOT NULL,"\
+                 "MATRICULA_CRIADOR_TESTE INT,"\
+                 "FOREIGN KEY(MATRICULA_CRIADOR_TESTE) REFERENCES desenvolvedores(MATRICULA));";
+}
+
+ComandoCriarTabelaCasosTeste::ComandoCriarTabelaCasosTeste(){
+    comando_sql ="CREATE TABLE casos_teste("  \
+                 "CODIGO    INT     PRIMARY KEY NOT NULL," \
+                 "DATA      TEXT    NOT NULL," \
+                 "NOME      TEXT    NOT NULL," \
+                 "ACAO      TEXT    NOT NULL,"\
+                 "RESPOSTA  TEXT    NOT NULL," \
+                 "RESULTADO TEXT    NOT NULL,"
+                 "CODIGO_TESTE_ASSOCIADO INT,"\
+                 "FOREIGN KEY(CODIGO_TESTE_ASSOCIADO) REFERENCES testes(CODIGO));";
 }
 
 //------------------------------------ SHOW --------------------------------------------
