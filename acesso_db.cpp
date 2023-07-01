@@ -73,8 +73,8 @@ ComandoCriarTabelaTestes::ComandoCriarTabelaTestes(){
                  "CODIGO           INT  PRIMARY KEY NOT NULL,"\
                  "NOME             TEXT NOT NULL,"\
                  "CLASSE           TEXT NOT NULL,"\
-                 "MATRICULA_CRIADOR_TESTE INT,"\
-                 "FOREIGN KEY(MATRICULA_CRIADOR_TESTE) REFERENCES desenvolvedores(MATRICULA));";
+                 "MATRICULA_CRIADOR INT,"\
+                 "FOREIGN KEY(MATRICULA_CRIADOR) REFERENCES desenvolvedores(MATRICULA));";
 }
 
 ComandoCriarTabelaCasosTeste::ComandoCriarTabelaCasosTeste(){
@@ -89,7 +89,7 @@ ComandoCriarTabelaCasosTeste::ComandoCriarTabelaCasosTeste(){
                  "FOREIGN KEY(CODIGO_TESTE_ASSOCIADO) REFERENCES testes(CODIGO));";
 }
 
-//------------------------------------ SHOW --------------------------------------------
+//------------------------------------ INDEX/SHOW ------------------------------------------------
 
 //Metodos da Classe ComandoPesquisarSenha
 
@@ -281,6 +281,113 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
 
     return desenvolvedor;
 };
+
+//Metodos da Classe ComandoPesquisarCasosTesteDoTeste
+
+ComandoPesquisarCasosTesteDoTeste::ComandoPesquisarCasosTesteDoTeste(Codigo codigo) {
+    comando_sql = "SELECT CT.CODIGO, CT.DATA, CT.NOME, CT.ACAO, CT.RESPOSTA, CT.RESULTADO FROM casos_teste"\
+    "AS CT INNER JOIN testes AS T ON CT.CODIGO_TESTE_ASSOCIADO = T.CODIGO WHERE T.CODIGO = '";
+    comando_sql += codigo.get_valor_dominio();
+    comando_sql += "'";
+}
+
+list<CasoTeste> ComandoPesquisarCasosTesteDoTeste::get_resultado() {
+    ElementoResultado resultado;
+    list<CasoTeste> casos_teste_do_teste;
+    CasoTeste caso_teste;
+    Codigo codigo;
+    Data data;
+    Texto nome;
+    Texto acao;
+    Texto resposta;
+    Resultado resultado_caso_teste;
+
+    while(!lista_resultado.empty()){
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        codigo.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        data.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        nome.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        acao.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        resposta.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        resultado_caso_teste.set_valor_dominio(resultado.get_valor_coluna());
+
+        caso_teste.set_codigo(codigo);
+        caso_teste.set_data(data);
+        caso_teste.set_nome(nome);
+        caso_teste.set_acao(acao);
+        caso_teste.set_resposta(resposta);
+        caso_teste.set_resultado(resultado_caso_teste);
+
+        casos_teste_do_teste.push_back(caso_teste);
+    }
+    return casos_teste_do_teste;
+}
+
+//Metodos da Classe ComandoPesquisarTestesDoDesenvolvedor
+
+ComandoPesquisarTestesDoDesenvolvedor::ComandoPesquisarTestesDoDesenvolvedor(Matricula matricula) {
+    comando_sql = "SELECT  T.CODIGO, T.CLASSE, T.NOME FROM testes AS T INNER JOIN desenvolvedores AS D"\
+    "ON T.MATRICULA_CRIADOR = D.MATRICULA WHERE D.MATRICULA = '";
+    comando_sql += matricula.get_valor_dominio();
+    comando_sql += "'";
+}
+
+list<Teste> ComandoPesquisarTestesDoDesenvolvedor::get_resultado() {
+    ElementoResultado resultado;
+    list<Teste> testes_do_desenvolvedor;
+    Teste teste;
+    Codigo codigo;
+    Classe classe;
+    Texto nome;
+    
+
+    while(!lista_resultado.empty()){
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        codigo.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+        classe.set_valor_dominio(resultado.get_valor_coluna());
+
+        resultado = lista_resultado.back();
+        lista_resultado.pop_back();
+
+       	nome.set_valor_dominio(resultado.get_valor_coluna());
+
+  
+        teste.set_codigo(codigo);
+        teste.set_classe(classe);
+        teste.set_nome(nome);
+
+        testes_do_desenvolvedor.push_back(teste);
+    }
+    return testes_do_desenvolvedor;
+}
 
 //------------------------------------- CREATE -----------------------------------------
 

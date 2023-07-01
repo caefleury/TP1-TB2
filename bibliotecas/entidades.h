@@ -117,6 +117,7 @@ inline Telefone Desenvolvedor::get_telefone() const
 * - codigo
 * - nome
 * - classe
+* - matricula_criador
 * estes que sao objetos das classes Codigo, Nome e Classe
 */
 
@@ -126,6 +127,7 @@ private:
     Codigo codigo;
     Texto nome;
     Classe classe;
+    Matricula matricula_criador;
 
 public:
     /**
@@ -160,6 +162,17 @@ public:
      * @return String com o valor da classe
      */
     Classe get_classe() const;
+
+    /**
+     * @brief Metodo para atribuir a matricula do criador do teste
+     * @param string com o valor da matricula do criador do teste a ser atribuido
+     */
+    void set_matricula_criador(const Matricula &);
+    /**
+     * @brief Metodo para obter o valor da matricula do criador do teste
+     * @return String com o valor da matricula do criador do teste
+     */
+    Matricula get_matricula_criador() const;
 };
 
 // Métodos modificadores da entidade Teste
@@ -175,6 +188,10 @@ inline void Teste::set_classe(const Classe &classe)
 {
     this->classe = classe;
 };
+inline void Teste::set_matricula_criador(const Matricula &matricula_criador)
+{
+    this->matricula_criador = matricula_criador;
+};
 
 // Métodos acessadores da entidade Teste
 inline Codigo Teste::get_codigo() const
@@ -189,6 +206,10 @@ inline Classe Teste::get_classe() const
 {
     return classe;
 };
+inline Matricula Teste::get_matricula_criador() const
+{
+    return matricula_criador;
+};
 
 // -------------------
 // Entidade Caso de Teste.
@@ -201,6 +222,7 @@ inline Classe Teste::get_classe() const
 * - acao
 * - resposta 
 * - resultado
+* - codigo_teste_associado
 * estes que sao objetos das classes Codigo, Data, Nome, Acao, Resposta e Resultado
 */
 class CasoTeste // 212006577
@@ -212,6 +234,7 @@ private:
     Texto acao;
     Texto resposta;
     Resultado resultado;
+    Codigo codigo_teste_associado;
 
 public:
     /**
@@ -279,6 +302,17 @@ public:
      * @return String com o valor do resultado
      */
     Resultado get_resultado() const;
+
+    /**
+     * @brief Metodo para atribuir o codigo_teste_associado
+     * @param string com o valor do codigo_teste_associado a ser atribuido
+     */
+    void set_codigo_teste_associado(const Codigo &);
+    /**
+     * @brief Metodo para obter o valor do codigo_teste_associado
+     * @return String com o valor do codigo_teste_associado
+     */
+    Codigo get_codigo_teste_associado() const;
 };
 
 // Métodos acessadores da entidade Caso de Teste
@@ -306,6 +340,10 @@ inline void CasoTeste::set_resultado(const Resultado &resultado)
 {
     this->resultado = resultado;
 };
+inline void CasoTeste::set_codigo_teste_associado(const Codigo &codigo_teste_associado)
+{
+    this->codigo_teste_associado = codigo_teste_associado;
+};
 
 // Métodos modificadores da entidade Caso de Teste
 inline Codigo CasoTeste::get_codigo() const
@@ -331,6 +369,10 @@ inline Texto CasoTeste::get_resposta() const
 inline Resultado CasoTeste::get_resultado() const
 {
     return resultado;
+};
+inline Codigo CasoTeste::get_codigo_teste_associado() const
+{
+    return codigo_teste_associado;
 };
 
 #endif // ENTIDADES_H_INCLUDED

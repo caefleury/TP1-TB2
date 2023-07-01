@@ -55,7 +55,7 @@ public:
         ComandoSQL() { nome_banco_dados = "banco_de_dados.db"; };
 };
 
-//------------------------------------ Criar tabelas ---------------------------------------
+//------------------------------------ Criar Tabelas ------------------------------------
 
 class ComandoCriarTabelaDesenvolvedores : public ComandoSQL
 {
@@ -111,6 +111,24 @@ class ComandoPesquisarDesenvolvedor : public ComandoSQL
 public:
         Desenvolvedor get_resultado();
         ComandoPesquisarDesenvolvedor(Matricula);
+};
+
+// Classe ComandoPesquisarTestesDoDesenvolvedor
+
+class ComandoPesquisarTestesDoDesenvolvedor : public ComandoSQL
+{
+public:
+        list<Teste> get_resultado();
+        ComandoPesquisarTestesDoDesenvolvedor(Matricula);
+};
+
+// Classe ComandoPesquisarCasosTesteDoTeste
+
+class ComandoPesquisarCasosTesteDoTeste : public ComandoSQL
+{
+public:
+        list<CasoTeste> get_resultado();
+        ComandoPesquisarCasosTesteDoTeste(Codigo);
 };
 
 //------------------------------------- Criar -----------------------------------------
