@@ -45,22 +45,22 @@ int main() {
     cadastrar_desenvolvedor.executar();
 
     ApresentacaoTeste *apresentacao_teste;
-    // ApresentacaoCasoTeste *apresentacao_caso_teste;
+    ApresentacaoCasoTeste *apresentacao_caso_teste;
     ApresentacaoAutenticacao *apresentacao_autenticacao;
     ApresentacaoDesenvolvedor *apresentacao_desenvolvedor;
 
     apresentacao_teste = new ApresentacaoTeste();
-    // apresentacao_caso_teste = new ApresentacaoCasoTeste();
+    apresentacao_caso_teste = new ApresentacaoCasoTeste();
     apresentacao_autenticacao = new ApresentacaoAutenticacao();
     apresentacao_desenvolvedor = new ApresentacaoDesenvolvedor();
 
     InterfaceServicoTeste *servico_teste;
     InterfaceServicoAutenticacao *servico_autenticacao;
-    // InterfaceServicoCasoTeste *servico_caso_teste;
+    InterfaceServicoCasoTeste *servico_caso_teste;
     InterfaceServicoDesenvolvedor *servico_desenvolvedor;
 
     servico_teste = new  ServicoTeste();
-    // servico_caso_teste = new ServicoCasoTeste();
+    servico_caso_teste = new ServicoCasoTeste();
     servico_autenticacao = new  ServicoAutenticacao();
     servico_desenvolvedor = new  ServicoDesenvolvedor();
 
@@ -75,6 +75,9 @@ int main() {
 
     apresentacao_teste ->set_servico_teste(servico_teste);
     apresentacao_controle->set_apresentacao_teste(apresentacao_teste);
+
+    apresentacao_caso_teste ->set_servico_caso_teste(servico_caso_teste);
+    apresentacao_controle->set_apresentacao_caso_teste(apresentacao_caso_teste);
 
     apresentacao_controle->executar();
 

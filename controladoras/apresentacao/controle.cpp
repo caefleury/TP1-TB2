@@ -63,17 +63,18 @@ void ApresentacaoControle::executar(){
                                     apresentar = false;
                                     cout << "Desenvolvedor nao existe" << endl;
                                     getchar();
+                                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
                                 }
                                 break;
                             case 2:
                                 apresentacao_teste->executar(matricula);
                                 break;
-                            // case 3:
-                            //     apresentacao_caso_teste->executar(matricula);
-                            //     break;
-                            // case 4:
-                            //     apresentar = false;
-                            //     break;
+                            case 3:
+                                apresentacao_caso_teste->executar(matricula);
+                                break;
+                            case 4:
+                                apresentar = false;
+                                break;
                         }
                     }
                 } else {

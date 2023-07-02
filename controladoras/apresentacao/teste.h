@@ -7,12 +7,13 @@
 
 class ApresentacaoTeste:public InterfaceApresentacaoTeste{
     private:
-        bool deletar_teste(Codigo);
-        void retornar_teste(Codigo);
-        void atualizar_teste(Codigo);
+        void deletar_teste();
+        void retornar_teste();
+        void atualizar_teste();
+        void listar_testes(Matricula);
         InterfaceServicoTeste *servicos_teste;
     public:
-        void criar_teste() override;
+        void criar_teste(Matricula);
         bool executar(Matricula) override;
         void set_servico_teste(InterfaceServicoTeste*) override;
 };

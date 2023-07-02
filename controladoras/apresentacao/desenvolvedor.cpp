@@ -115,9 +115,9 @@ void ApresentacaoDesenvolvedor::criar_desenvolvedor()
         try
         {
             nome.set_valor_dominio(campo1);
+            matricula.set_valor_dominio(campo2);
             senha.set_valor_dominio(campo3);
             telefone.set_valor_dominio(campo4);
-            matricula.set_valor_dominio(campo2);
             apresentar = false;
         }
         catch (invalid_argument &exp)

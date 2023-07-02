@@ -124,14 +124,9 @@ Teste ComandoPesquisarTeste::get_resultado() {
     Teste teste;
     Codigo codigo;
     Classe classe;
+    Matricula matricula_criador;
     ElementoResultado resultado;
 
-    // Remover nome;
-    if (lista_resultado.empty())
-        throw "not found";
-    resultado = lista_resultado.back();
-    lista_resultado.pop_back();
-    nome.set_valor_dominio(resultado.get_valor_coluna());
 
     // Remover codigo;
     if (lista_resultado.empty())
@@ -140,12 +135,26 @@ Teste ComandoPesquisarTeste::get_resultado() {
     lista_resultado.pop_back();
     codigo.set_valor_dominio(resultado.get_valor_coluna());
 
+    // Remover nome;
+    if (lista_resultado.empty())
+        throw "not found";
+    resultado = lista_resultado.back();
+    lista_resultado.pop_back();
+    nome.set_valor_dominio(resultado.get_valor_coluna());
+
     // Remover classe;
     if (lista_resultado.empty())
         throw "not found";
     resultado = lista_resultado.back();
     lista_resultado.pop_back();
     classe.set_valor_dominio(resultado.get_valor_coluna());
+
+    // Remover matricula criador;
+    if (lista_resultado.empty())
+        throw "not found";
+    resultado = lista_resultado.back();
+    lista_resultado.pop_back();
+    matricula_criador.set_valor_dominio(resultado.get_valor_coluna());
 
     teste.set_nome(nome);
     teste.set_codigo(codigo);
@@ -163,21 +172,29 @@ ComandoPesquisarCasoTeste::ComandoPesquisarCasoTeste(Codigo codigo) {
 };
 
 CasoTeste ComandoPesquisarCasoTeste::get_resultado() {
+    Codigo codigo;
     Data data;
     Texto nome;
     Texto acao;
-    Codigo codigo;
     Texto resposta;
-    CasoTeste caso_teste;
     ElementoResultado resultado;
     Resultado resultado_caso_teste;
+    Codigo codigo_teste_associado;
+
+    CasoTeste caso_teste;
+    // Remover codigo;
+    if (lista_resultado.empty())
+        throw "not found";
+    resultado = lista_resultado.back();
+    lista_resultado.pop_back();
+    codigo.set_valor_dominio(resultado.get_valor_coluna());
 
     // Remover data;
     if (lista_resultado.empty())
         throw "not found";
     resultado = lista_resultado.back();
     lista_resultado.pop_back();
-    nome.set_valor_dominio(resultado.get_valor_coluna());
+    data.set_valor_dominio(resultado.get_valor_coluna());
 
     // Remover nome;
     if (lista_resultado.empty())
@@ -193,13 +210,6 @@ CasoTeste ComandoPesquisarCasoTeste::get_resultado() {
     lista_resultado.pop_back();
     acao.set_valor_dominio(resultado.get_valor_coluna());
 
-    // Remover codigo;
-    if (lista_resultado.empty())
-        throw "not found";
-    resultado = lista_resultado.back();
-    lista_resultado.pop_back();
-    codigo.set_valor_dominio(resultado.get_valor_coluna());
-
     // Remover resposta;
     if (lista_resultado.empty())
         throw "not found";
@@ -213,6 +223,14 @@ CasoTeste ComandoPesquisarCasoTeste::get_resultado() {
     resultado = lista_resultado.back();
     lista_resultado.pop_back();
     resultado_caso_teste.set_valor_dominio(resultado.get_valor_coluna());
+
+    // Remover caso de teste associado;
+    if (lista_resultado.empty())
+        throw "not found";
+    resultado = lista_resultado.back();
+    lista_resultado.pop_back();
+    codigo_teste_associado.set_valor_dominio(resultado.get_valor_coluna());
+
 
     caso_teste.set_data(data);
     caso_teste.set_nome(nome);
@@ -285,7 +303,7 @@ Desenvolvedor ComandoPesquisarDesenvolvedor::get_resultado() {
 //Metodos da Classe ComandoPesquisarCasosTesteDoTeste
 
 ComandoPesquisarCasosTesteDoTeste::ComandoPesquisarCasosTesteDoTeste(Codigo codigo) {
-    comando_sql = "SELECT CT.CODIGO, CT.DATA, CT.NOME, CT.ACAO, CT.RESPOSTA, CT.RESULTADO FROM casos_teste"\
+    comando_sql = "SELECT CT.CODIGO, CT.DATA, CT.NOME, CT.ACAO, CT.RESPOSTA, CT.RESULTADO FROM casos_teste "\
     "AS CT INNER JOIN testes AS T ON CT.CODIGO_TESTE_ASSOCIADO = T.CODIGO WHERE T.CODIGO = '";
     comando_sql += codigo.get_valor_dominio();
     comando_sql += "'";
@@ -348,10 +366,10 @@ list<CasoTeste> ComandoPesquisarCasosTesteDoTeste::get_resultado() {
 //Metodos da Classe ComandoPesquisarTestesDoDesenvolvedor
 
 ComandoPesquisarTestesDoDesenvolvedor::ComandoPesquisarTestesDoDesenvolvedor(Matricula matricula) {
-    comando_sql = "SELECT  T.CODIGO, T.CLASSE, T.NOME FROM testes AS T INNER JOIN desenvolvedores AS D"\
+    comando_sql = "SELECT T.CODIGO, T.CLASSE, T.NOME FROM testes AS T INNER JOIN desenvolvedores AS D "\
     "ON T.MATRICULA_CRIADOR = D.MATRICULA WHERE D.MATRICULA = '";
     comando_sql += matricula.get_valor_dominio();
-    comando_sql += "'";
+    comando_sql += "';";
 }
 
 list<Teste> ComandoPesquisarTestesDoDesenvolvedor::get_resultado() {
@@ -361,7 +379,7 @@ list<Teste> ComandoPesquisarTestesDoDesenvolvedor::get_resultado() {
     Codigo codigo;
     Classe classe;
     Texto nome;
-    
+
 
     while(!lista_resultado.empty()){
         resultado = lista_resultado.back();
@@ -379,13 +397,14 @@ list<Teste> ComandoPesquisarTestesDoDesenvolvedor::get_resultado() {
 
        	nome.set_valor_dominio(resultado.get_valor_coluna());
 
-  
+
         teste.set_codigo(codigo);
         teste.set_classe(classe);
         teste.set_nome(nome);
 
         testes_do_desenvolvedor.push_back(teste);
     }
+
     return testes_do_desenvolvedor;
 }
 
@@ -416,6 +435,8 @@ ComandoCadastrarTeste::ComandoCadastrarTeste(Teste teste) {
     comando_sql += teste.get_nome().get_valor_dominio();
     comando_sql += "', '";
     comando_sql += teste.get_classe().get_valor_dominio();
+    comando_sql += "', '";
+    comando_sql += teste.get_matricula_criador().get_valor_dominio();
     comando_sql += "')";
 };
 
@@ -432,9 +453,11 @@ ComandoCadastrarCasoTeste::ComandoCadastrarCasoTeste(CasoTeste caso_teste) {
     comando_sql += "', '";
     comando_sql += caso_teste.get_acao().get_valor_dominio();
     comando_sql += "', '";
+    comando_sql += caso_teste.get_resposta().get_valor_dominio();
+    comando_sql += "', '";
     comando_sql += caso_teste.get_resultado().get_valor_dominio();
     comando_sql += "', '";
-    comando_sql += caso_teste.get_resposta().get_valor_dominio();
+    comando_sql += caso_teste.get_codigo_teste_associado().get_valor_dominio();
     comando_sql += "')";
 };
 
@@ -443,13 +466,11 @@ ComandoCadastrarCasoTeste::ComandoCadastrarCasoTeste(CasoTeste caso_teste) {
 //Metodos da Classe ComandoAtualizarDesenvolvedor
 
 ComandoAtualizarDesenvolvedor::ComandoAtualizarDesenvolvedor(Desenvolvedor desenvolvedor) {
-    comando_sql = "UPDATE desenvolvedores ";
-    comando_sql += "' WHERE matricula = '" + desenvolvedor.get_matricula().get_valor_dominio(); + "'";
-    comando_sql += "SET nome = '" + desenvolvedor.get_nome().get_valor_dominio();
+    comando_sql = "UPDATE desenvolvedores SET ";
+    comando_sql += "nome = '" + desenvolvedor.get_nome().get_valor_dominio();
     comando_sql += "', senha = '" + desenvolvedor.get_senha().get_valor_dominio();
-    comando_sql += "', telefone = '" + desenvolvedor.get_telefone().get_valor_dominio();
-
-
+    comando_sql += "', telefone = '" + desenvolvedor.get_telefone().get_valor_dominio() + "'";
+    comando_sql += " WHERE matricula = '" + desenvolvedor.get_matricula().get_valor_dominio() + "'";
 };
 
 //Metodos da Classe ComandoAtualizarTeste
@@ -458,20 +479,20 @@ ComandoAtualizarTeste::ComandoAtualizarTeste(Teste teste) {
     comando_sql = "UPDATE testes ";
     comando_sql += "SET nome = '" + teste.get_nome().get_valor_dominio();
     comando_sql += "', classe = '" + teste.get_classe().get_valor_dominio();
-    comando_sql += "' WHERE codigo = '" + teste.get_codigo().get_valor_dominio(); + "'";
+    comando_sql += "' WHERE codigo = '" + teste.get_codigo().get_valor_dominio() + "'";
 };
 
 //Metodos da Classe ComandoAtualizarCasoTeste
 
 ComandoAtualizarCasoTeste::ComandoAtualizarCasoTeste(CasoTeste caso_teste) {
-    comando_sql = "UPDATE casos_teste";
+    comando_sql = "UPDATE casos_teste ";
     comando_sql += "SET data = '" + caso_teste.get_data().get_valor_dominio();
     comando_sql += "', nome = '" + caso_teste.get_nome().get_valor_dominio();
     comando_sql += "', acao = '" + caso_teste.get_acao().get_valor_dominio();
-    comando_sql += "', resultado = '" + caso_teste.get_resultado().get_valor_dominio();
     comando_sql += "', resposta = '" + caso_teste.get_resposta().get_valor_dominio();
-    comando_sql += "' WHERE codigo = '" + caso_teste.get_codigo().get_valor_dominio(); + "'";
-};
+    comando_sql += "', resultado = '" + caso_teste.get_resultado().get_valor_dominio();
+    comando_sql += "' WHERE codigo = '" + caso_teste.get_codigo().get_valor_dominio() + "'";
+}
 
 //------------------------------------- DELETE -----------------------------------------
 

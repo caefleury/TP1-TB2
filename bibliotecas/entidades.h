@@ -220,12 +220,12 @@ inline Matricula Teste::get_matricula_criador() const
 * - data
 * - nome
 * - acao
-* - resposta 
+* - resposta
 * - resultado
 * - codigo_teste_associado
 * estes que sao objetos das classes Codigo, Data, Nome, Acao, Resposta e Resultado
 */
-class CasoTeste // 212006577
+class CasoTeste // 212006737
 {
 private:
     Codigo codigo;

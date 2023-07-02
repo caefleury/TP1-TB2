@@ -51,7 +51,7 @@ class InterfaceApresentacaoDesenvolvedor {
 
 class InterfaceApresentacaoTeste {
     public:
-        virtual void criar_teste() = 0;
+        virtual void criar_teste(Matricula) = 0;
         virtual bool executar(Matricula) = 0;
         virtual ~InterfaceApresentacaoTeste(){}
         virtual void set_servico_teste(InterfaceServicoTeste*) = 0;
@@ -59,7 +59,7 @@ class InterfaceApresentacaoTeste {
 
 class InterfaceApresentacaoCasoTeste {
     public:
-        virtual bool executar(Codigo) = 0;
+        virtual bool executar(Matricula) = 0;
         virtual void criar_caso_teste() = 0;
         virtual ~InterfaceApresentacaoCasoTeste(){}
         virtual void set_servico_caso_teste(InterfaceServicoCasoTeste*) = 0;

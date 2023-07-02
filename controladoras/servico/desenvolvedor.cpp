@@ -26,30 +26,19 @@ bool ServicoDesenvolvedor::deletar_desenvolvedor(Matricula matricula) {
     list<Teste> testes_para_deletar;
     testes_para_deletar = pesquisar_testes_do_desenvolvedor.get_resultado();
 
-    int deletou_teste = 1;
-    int deletou_caso_teste = 1;
-
     for (Teste teste : testes_para_deletar){
-        if ( deletou_teste ){
             ComandoPesquisarCasosTesteDoTeste pesquisar_casos_teste_do_teste(teste.get_codigo());
             pesquisar_casos_teste_do_teste.executar();
             list<CasoTeste> casos_teste_para_deletar;
             casos_teste_para_deletar = pesquisar_casos_teste_do_teste.get_resultado();
 
             for (CasoTeste caso_teste: casos_teste_para_deletar){
-                if ( deletou_caso_teste ){
-                    ComandoDeletarCasoTeste deletar_caso_teste(caso_teste.get_codigo());
-                    deletou_caso_teste = deletar_caso_teste.executar();
-                } else {
-                    return deletou_caso_teste;
-                }
+                ComandoDeletarCasoTeste deletar_caso_teste(caso_teste.get_codigo());
+                deletar_caso_teste.executar();
             }
 
             ComandoDeletarTeste deletar_teste(teste.get_codigo());
-            deletou_teste = deletar_teste.executar();
-        } else {
-            return deletou_teste;
-        }      
+            deletar_teste.executar();
     }
 
     ComandoDeletarDesenvolvedor deletar_desenvolvedor(matricula);
