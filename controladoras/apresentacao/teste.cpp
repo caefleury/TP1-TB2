@@ -3,11 +3,13 @@
 #include <limits>
 #include <list>
 
-void ApresentacaoTeste::set_servico_teste(InterfaceServicoTeste *servicos_teste){
+void ApresentacaoTeste::set_servico_teste(InterfaceServicoTeste *servicos_teste)
+{
     this->servicos_teste = servicos_teste;
 }
 
-bool ApresentacaoTeste::executar(Matricula matricula) {
+bool ApresentacaoTeste::executar(Matricula matricula)
+{
     char texto1[] = "Selecione um dos servicos : ";
     char texto2[] = "1 - Criar teste";
     char texto3[] = "2 - Listar seus testes";
@@ -20,7 +22,8 @@ bool ApresentacaoTeste::executar(Matricula matricula) {
 
     bool apresentar = true;
 
-    while(apresentar) {
+    while (apresentar)
+    {
 
         cout << texto1 << endl;
         cout << texto2 << endl;
@@ -30,34 +33,35 @@ bool ApresentacaoTeste::executar(Matricula matricula) {
         cout << texto6 << endl;
         cout << texto7 << endl;
 
-
         campo = getchar() - 48;
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
-         switch(campo){
-            case 1:
-                criar_teste(matricula);
-                break;
-            case 2:
-                listar_testes(matricula);
-                break;
-            case 3:
-                retornar_teste();
-                break;
-            case 4:
-                atualizar_teste();
-                break;
-            case 5:
-                deletar_teste();
-                break;
-            case 6:
-                apresentar = false;
-                break;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        switch (campo)
+        {
+        case 1:
+            criar_teste(matricula);
+            break;
+        case 2:
+            listar_testes(matricula);
+            break;
+        case 3:
+            retornar_teste(matricula);
+            break;
+        case 4:
+            atualizar_teste(matricula);
+            break;
+        case 5:
+            deletar_teste(matricula);
+            break;
+        case 6:
+            apresentar = false;
+            break;
         }
     }
     return true;
 }
 
-void ApresentacaoTeste::listar_testes(Matricula matricula) {
+void ApresentacaoTeste::listar_testes(Matricula matricula)
+{
 
     cout << "-------------------------Lista de Testes-------------------------" << endl;
     /*
@@ -67,27 +71,51 @@ void ApresentacaoTeste::listar_testes(Matricula matricula) {
     */
     cout << "Digite algo para retornar" << endl;
     getchar();
-    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void ApresentacaoTeste::deletar_teste() {
+void ApresentacaoTeste::deletar_teste(Matricula matricula)
+{
     int campo;
     string campo1;
     Codigo codigo;
+    Teste teste;
     char texto1[] = "Codigo em formato incorreto. Digite algo.";
+    char texto2[] = "1 - Para tentar novamente.";
+    char texto3[] = "2 - Para retornar.";
     bool apresentar = true;
-    while(apresentar){
-        cout << "Digite o codigo do caso de teste :" <<  endl;
+    while (apresentar)
+    {
+        cout << "Digite o codigo do caso de teste :" << endl;
         getline(cin, campo1);
-        try {
+        try
+        {
+            char texto4[] = "Voce nao tem acesso a esse teste!";
             codigo.set_valor_dominio(campo1);
-            apresentar = false;
-        } catch(invalid_argument &exp) {
+            teste = servicos_teste->retornar_teste(codigo);
+
+            if (matricula.get_valor_dominio() != teste.get_matricula_criador().get_valor_dominio())
+            {
+                cout << texto4 << endl;
+                cout << texto2 << endl;
+                cout << texto3 << endl;
+                campo = getchar() - 48;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (campo == 2)
+                    return;
+            }
+            else
+            {
+                apresentar = false;
+            };
+        }
+        catch (invalid_argument &exp)
+        {
             cout << texto1 << endl;
-            cout << "1 - Para tentar novamente." << endl;
-            cout << "2 - Para retornar." << endl;
+            cout << texto2 << endl;
+            cout << texto3 << endl;
             campo = getchar() - 48;
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo == 2)
                 return;
         }
@@ -99,27 +127,30 @@ void ApresentacaoTeste::deletar_teste() {
     cout << "1 - Sim, quero excluir." << endl;
     cout << "2 - Nao quero excluir, retornar." << endl;
     campo = getchar() - 48;
-    if (campo == 2){
+    if (campo == 2)
+    {
         cout << "Processo cancelado." << endl;
         getchar();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
     }
-    if(servicos_teste->deletar_teste(codigo)){
+    if (servicos_teste->deletar_teste(codigo))
+    {
         cout << "Caso de Teste removido com sucesso" << endl;
         cout << "Digite algo para retornar." << endl;
         getchar();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
     }
     cout << "Falha na exclusao. Tente novamente." << endl;
     cout << "Digite algo para retornar." << endl;
     getchar();
-    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return;
 }
 
-void ApresentacaoTeste::criar_teste(Matricula matricula) {
+void ApresentacaoTeste::criar_teste(Matricula matricula)
+{
     char texto1[] = "Preencha os seguintes campos:";
     char texto2[] = "Nome            :";
     char texto3[] = "Classe          :";
@@ -137,7 +168,8 @@ void ApresentacaoTeste::criar_teste(Matricula matricula) {
 
     bool apresentar = true;
 
-    while(apresentar){
+    while (apresentar)
+    {
         cout << "-----CRIACAO DE TESTE-----" << endl;
         cout << texto1 << endl;
         cout << texto2 << " ";
@@ -147,17 +179,20 @@ void ApresentacaoTeste::criar_teste(Matricula matricula) {
         cout << texto4 << " ";
         getline(cin, campo3);
 
-        try {
+        try
+        {
             nome.set_valor_dominio(campo1);
             classe.set_valor_dominio(campo2);
             codigo.set_valor_dominio(campo3);
             apresentar = false;
-        } catch(invalid_argument &exp) {
+        }
+        catch (invalid_argument &exp)
+        {
             cout << texto5 << endl;
             cout << "1 - Para tentar novamente." << endl;
             cout << "2 - Para retornar." << endl;
             campo = getchar() - 48;
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo == 2)
                 return;
         }
@@ -170,45 +205,67 @@ void ApresentacaoTeste::criar_teste(Matricula matricula) {
     teste.set_classe(classe);
     teste.set_matricula_criador(matricula);
 
-    if(servicos_teste->criar_teste(teste)) {
+    if (servicos_teste->criar_teste(teste))
+    {
         cout << texto6 << endl;
         getchar();
-        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
     }
     cout << texto7 << endl;
     getchar();
-    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return;
 }
 
-
-void ApresentacaoTeste::retornar_teste() {
+void ApresentacaoTeste::retornar_teste(Matricula matricula)
+{
     int campo;
     string campo1;
     Codigo codigo;
     char texto1[] = "Dados em formato incorreto. Digite algo.";
+    char texto2[] = "1 - Para tentar novamente.";
+    char texto3[] = "2 - Para retornar.";
 
     bool apresentar = true;
-    while(apresentar){
+    Teste teste;
+
+    while (apresentar)
+    {
         cout << "Digite o codigo do teste que deseja visualizar: " << endl;
         getline(cin, campo1);
-        try {
+        try
+        {
+            char texto4[] = "Voce nao tem acesso a esse teste!";
             codigo.set_valor_dominio(campo1);
-            apresentar = false;
-        } catch(invalid_argument &exp) {
+            teste = servicos_teste->retornar_teste(codigo);
+
+            if (matricula.get_valor_dominio() != teste.get_matricula_criador().get_valor_dominio())
+            {
+                cout << texto4 << endl;
+                cout << texto2 << endl;
+                cout << texto3 << endl;
+                campo = getchar() - 48;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (campo == 2)
+                    return;
+            }
+            else
+            {
+                apresentar = false;
+            };
+        }
+        catch (invalid_argument &exp)
+        {
             cout << texto1 << endl;
-            cout << "1 - Para tentar novamente." << endl;
-            cout << "2 - Para retornar." << endl;
+            cout << texto2 << endl;
+            cout << texto3 << endl;
             campo = getchar() - 48;
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo == 2)
                 return;
         }
     }
-
-    Teste teste;
-    teste = servicos_teste->retornar_teste(codigo);
 
     cout << "DADOS DO TESTE" << endl;
     cout << "Nome     : " << teste.get_nome().get_valor_dominio() << endl;
@@ -217,46 +274,69 @@ void ApresentacaoTeste::retornar_teste() {
 
     cout << "Digite algo para retornar." << endl;
     getchar();
-    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void ApresentacaoTeste::atualizar_teste() {
+void ApresentacaoTeste::atualizar_teste(Matricula matricula)
+{
 
     Texto nome;
     Teste teste;
     Classe classe;
 
-    int campo_1;
+    int campo_1, campo;
     string campo1;
     Codigo codigo;
+
     char texto1[] = "Codigo em formato incorreto. Digite algo.";
+    char texto2[] = "1 - Para tentar novamente.";
+    char texto3[] = "2 - Para retornar.";
     bool apresentar_codigo = true;
-    while(apresentar_codigo){
-        cout << "Digite o codigo do teste :" <<  endl;
+    while (apresentar_codigo)
+    {
+        cout << "Digite o codigo do teste :" << endl;
         getline(cin, campo1);
-        try {
+        try
+        {
+            char texto4[] = "Voce nao tem acesso a esse teste!";
             codigo.set_valor_dominio(campo1);
-            apresentar_codigo = false;
-        } catch(invalid_argument &exp) {
+            teste = servicos_teste->retornar_teste(codigo);
+
+            if (matricula.get_valor_dominio() != teste.get_matricula_criador().get_valor_dominio())
+            {
+                cout << texto4 << endl;
+                cout << texto2 << endl;
+                cout << texto3 << endl;
+                campo = getchar() - 48;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (campo == 2)
+                    return;
+            }
+            else
+            {
+                apresentar_codigo = false;
+            };
+        }
+        catch (invalid_argument &exp)
+        {
             cout << texto1 << endl;
             cout << "1 - Para tentar novamente." << endl;
             cout << "2 - Para retornar." << endl;
             campo_1 = getchar() - 48;
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo_1 == 2)
                 return;
         }
-
     }
-
-    teste = servicos_teste->retornar_teste(codigo);
 
     int campo_2;
     string campo2, campo3;
     bool apresentar_dados = true;
 
-    while(apresentar_dados){
-        try {
+    while (apresentar_dados)
+    {
+        try
+        {
             cout << "-----ATUALIZACAO DOS DADOS-----" << endl;
             cout << "---------DADOS ATUAIS---------" << endl;
             cout << "Nome    : " << teste.get_nome().get_valor_dominio() << endl;
@@ -277,11 +357,14 @@ void ApresentacaoTeste::atualizar_teste() {
             teste.set_classe(classe);
 
             apresentar_dados = false;
-        } catch(invalid_argument &exp){
+        }
+        catch (invalid_argument &exp)
+        {
             cout << "Novos dados invalidos. Insira novamente." << endl;
             cout << "1 - Para tentar novamente." << endl;
             cout << "2 - Para retornar." << endl;
             campo_2 = getchar() - 48;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             if (campo_2 == 2)
                 return;
             getchar();
@@ -294,4 +377,5 @@ void ApresentacaoTeste::atualizar_teste() {
         cout << "Falha na atualizacao dos dados!" << endl;
     cout << "Digite algo para retornar." << endl;
     getchar();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 };

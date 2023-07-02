@@ -5,11 +5,11 @@
 #include "../../bibliotecas/dominios.h"
 #include "../../bibliotecas/entidades.h"
 
-class ApresentacaoTeste:public InterfaceApresentacaoTeste{
+class ApresentacaoTeste:public InterfaceApresentacaoTeste{ // 211068440
     private:
-        void deletar_teste();
-        void retornar_teste();
-        void atualizar_teste();
+        void deletar_teste(Matricula);
+        void retornar_teste(Matricula);
+        void atualizar_teste(Matricula);
         void listar_testes(Matricula);
         InterfaceServicoTeste *servicos_teste;
     public:
