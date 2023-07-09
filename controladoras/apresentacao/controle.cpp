@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./controle.h"
+#include <limits>
 
 void ApresentacaoControle::set_apresentacao_autenticacao(InterfaceApresentacaoAutenticacao* apresentacao_autenticacao) {
     this->apresentacao_autenticacao = apresentacao_autenticacao;
@@ -41,11 +42,11 @@ void ApresentacaoControle::executar(){
         cout << texto4 << endl;
 
         campo = getchar() - 48;
-
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
         switch(campo){
             case 1:
                 if(apresentacao_autenticacao->autenticar(&matricula)) {
-                    bool apresentar = true;
+                    cout << "Usuario autenticado." << endl;
                     while(apresentar){
 
                         cout << texto5 << endl;
@@ -55,29 +56,30 @@ void ApresentacaoControle::executar(){
                         cout << texto9 << endl;
 
                         campo = getchar() - 48;
-
+                        cin.ignore(numeric_limits<streamsize>::max(),'\n');
                         switch(campo) {
                             case 1:
                                 if(!apresentacao_desenvolvedor->executar(matricula)){
                                     apresentar = false;
                                     cout << "Desenvolvedor nao existe" << endl;
                                     getchar();
+                                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
                                 }
                                 break;
-                            // case 2:
-                            //     apresentacao_teste->executar(matricula);
-                            //     break;
-                            // case 3:
-                            //     apresentacao_caso_teste->executar(matricula);
-                            //     break;
-                            // case 4: 
-                            //     apresentar = false;
-                            //     break;
+                            case 2:
+                                apresentacao_teste->executar(matricula);
+                                break;
+                            case 3:
+                                apresentacao_caso_teste->executar(matricula);
+                                break;
+                            case 4:
+                                apresentar = false;
+                                break;
                         }
                     }
                 } else {
                     cout << texto10 << endl;
-                    getchar();
+                    break;
                 }
                 break;
             case 2:

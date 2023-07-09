@@ -5,15 +5,16 @@
 #include "../../bibliotecas/dominios.h"
 #include "../../bibliotecas/entidades.h"
 
-class ApresentacaoTeste:public InterfaceApresentacaoTeste{
+class ApresentacaoTeste:public InterfaceApresentacaoTeste{ // 211068440
     private:
-        bool deletar_teste(Codigo);
-        void retornar_teste(Codigo);
-        void atualizar_teste(Codigo);
+        void deletar_teste(Matricula);
+        void retornar_teste(Matricula);
+        void atualizar_teste(Matricula);
+        void listar_testes(Matricula);
         InterfaceServicoTeste *servicos_teste;
     public:
-        void criar_teste() override;
-        bool executar(Codigo) override;
+        void criar_teste(Matricula);
+        bool executar(Matricula) override;
         void set_servico_teste(InterfaceServicoTeste*) override;
 };
 

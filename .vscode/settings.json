@@ -1,7 +1,8 @@
 {
-    "files.associations": {
-        "*.css": "tailwindcss",
-        "iostream": "cpp",
-        "ostream": "cpp"
-    }
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp"
+  }
 }

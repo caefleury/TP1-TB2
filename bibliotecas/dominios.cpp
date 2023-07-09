@@ -35,8 +35,8 @@ void Data::validar_dominio(const string data){
     regex formato_data;
     int ano = stoi(data.substr(7,10));
     bool bissexto = ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0));
-    string padrao_data = (bissexto ? 
-    "(0[1-9]|[1-2][0-9]|3[0-1])/(JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ)/2[0-9]{3}" : 
+    string padrao_data = (bissexto ?
+    "(0[1-9]|[1-2][0-9]|3[0-1])/(JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ)/2[0-9]{3}" :
     "(0[1-9]|[1-2][0-8]|3[0-1])/(JAN|FEV|MAR|ABR|MAI|JUN|JUL|AGO|SET|OUT|NOV|DEZ)/2[0-9]{3}");
     if(!regex_match(data, regex(padrao_data))){
         throw invalid_argument("Data invalida.");

@@ -8,152 +8,203 @@ using namespace std;
 
 //--------------------------------- Configuracao ---------------------------------------
 
-//Classe ElementoResultado
+// Classe ElementoResultado
 
-class ElementoResultado {
-        private:
-                string nome_coluna;
-                string valor_coluna;
-        public:
-                void set_nome_coluna(const string&);
-                string get_nome_coluna() const;
-                void set_valor_coluna(const string&);
-                string get_valor_coluna() const;
+class ElementoResultado
+{
+private:
+        string nome_coluna;
+        string valor_coluna;
+
+public:
+        void set_nome_coluna(const string &);
+        string get_nome_coluna() const;
+        void set_valor_coluna(const string &);
+        string get_valor_coluna() const;
 };
 
-inline string ElementoResultado::get_nome_coluna() const {
+inline string ElementoResultado::get_nome_coluna() const
+{
         return nome_coluna;
 }
 
-inline string ElementoResultado::get_valor_coluna() const {
+inline string ElementoResultado::get_valor_coluna() const
+{
         return valor_coluna;
 }
 
-//Classe ComandoSQL
+// Classe ComandoSQL
 
-class ComandoSQL {
-        private:
-                int rc;
-                sqlite3 *bd;
-                char *mensagem;
-                bool conectar();
-                bool desconectar();
-                const char *nome_banco_dados;
-                static int callback(void *, int, char **, char **);
-        protected:
-                string comando_sql;
-                static list<ElementoResultado> lista_resultado;
-        public:
-                bool executar();
-                ComandoSQL() { nome_banco_dados = "banco_de_dados.db";};
+class ComandoSQL
+{
+private:
+        int rc;
+        sqlite3 *bd;
+        char *mensagem;
+        bool conectar();
+        bool desconectar();
+        const char *nome_banco_dados;
+        static int callback(void *, int, char **, char **);
+
+protected:
+        string comando_sql;
+        static list<ElementoResultado> lista_resultado;
+
+public:
+        bool executar();
+        ComandoSQL() { nome_banco_dados = "banco_de_dados.db"; };
 };
 
-//------------------------------------ Provisorio ---------------------------------------
+//------------------------------------ Criar Tabelas ------------------------------------
 
-class ComandoCriarTabelas:public ComandoSQL {
-    public:
-        ComandoCriarTabelas();
+class ComandoCriarTabelaDesenvolvedores : public ComandoSQL
+{
+public:
+        ComandoCriarTabelaDesenvolvedores();
+};
+
+class ComandoCriarTabelaTestes : public ComandoSQL
+{
+public:
+        ComandoCriarTabelaTestes();
+};
+
+class ComandoCriarTabelaCasosTeste : public ComandoSQL
+{
+public:
+        ComandoCriarTabelaCasosTeste();
 };
 
 //------------------------------------ Retornar -----------------------------------------
 
-//Classe ComandoPesquisarSenha
+// Classe ComandoPesquisarSenha
 
-class ComandoPesquisarSenha:public ComandoSQL {
-    public:
+class ComandoPesquisarSenha : public ComandoSQL
+{
+public:
         string get_resultado();
         ComandoPesquisarSenha(Matricula);
 };
 
-//Classe ComandoPesquisarTeste
+// Classe ComandoPesquisarTeste
 
-class ComandoPesquisarTeste:public ComandoSQL {
-    public:
+class ComandoPesquisarTeste : public ComandoSQL
+{
+public:
         Teste get_resultado();
         ComandoPesquisarTeste(Codigo);
 };
 
-//Classe ComandoPesquisarCasoTeste
+// Classe ComandoPesquisarCasoTeste
 
-class ComandoPesquisarCasoTeste:public ComandoSQL {
-    public:
+class ComandoPesquisarCasoTeste : public ComandoSQL
+{
+public:
         CasoTeste get_resultado();
         ComandoPesquisarCasoTeste(Codigo);
 };
 
-//Classe ComandoPesquisarDesenvolvedor
+// Classe ComandoPesquisarDesenvolvedor
 
-class ComandoPesquisarDesenvolvedor:public ComandoSQL {
-    public:
+class ComandoPesquisarDesenvolvedor : public ComandoSQL
+{
+public:
         Desenvolvedor get_resultado();
         ComandoPesquisarDesenvolvedor(Matricula);
 };
 
+// Classe ComandoPesquisarTestesDoDesenvolvedor
+
+class ComandoPesquisarTestesDoDesenvolvedor : public ComandoSQL
+{
+public:
+        list<Teste> get_resultado();
+        ComandoPesquisarTestesDoDesenvolvedor(Matricula);
+};
+
+// Classe ComandoPesquisarCasosTesteDoTeste
+
+class ComandoPesquisarCasosTesteDoTeste : public ComandoSQL
+{
+public:
+        list<CasoTeste> get_resultado();
+        ComandoPesquisarCasosTesteDoTeste(Codigo);
+};
+
 //------------------------------------- Criar -----------------------------------------
 
-//Classe ComandoPesquisarDesenvolvedor
+// Classe ComandoCadastrarDesenvolvedor
 
-class ComandoCadastrarDesenvolvedor:public ComandoSQL {
-        public:
-                ComandoCadastrarDesenvolvedor(Desenvolvedor);
+class ComandoCadastrarDesenvolvedor : public ComandoSQL
+{
+public:
+        ComandoCadastrarDesenvolvedor(Desenvolvedor);
 };
 
-//Classe ComandoCadastrarTeste
+// Classe ComandoCadastrarTeste
 
-class ComandoCadastrarTeste:public ComandoSQL {
-        public:
-                ComandoCadastrarTeste(Teste);
+class ComandoCadastrarTeste : public ComandoSQL
+{
+public:
+        ComandoCadastrarTeste(Teste);
 };
 
-//Classe ComandoCadastrarCasoTeste
+// Classe ComandoCadastrarCasoTeste
 
-class ComandoCadastrarCasoTeste:public ComandoSQL {
-        public:
-                ComandoCadastrarCasoTeste(CasoTeste);
+class ComandoCadastrarCasoTeste : public ComandoSQL
+{
+public:
+        ComandoCadastrarCasoTeste(CasoTeste);
 };
 
 //------------------------------------- Atualizar -----------------------------------------
 
-//Classe ComandoAtualizarDesenvolvedor
+// Classe ComandoAtualizarDesenvolvedor
 
-class ComandoAtualizarDesenvolvedor:public ComandoSQL {
-        public:
-                ComandoAtualizarDesenvolvedor(Desenvolvedor);
+class ComandoAtualizarDesenvolvedor : public ComandoSQL
+{
+public:
+        ComandoAtualizarDesenvolvedor(Desenvolvedor);
 };
 
-//Classe ComandoAtualizarTeste
+// Classe ComandoAtualizarTeste
 
-class ComandoAtualizarTeste:public ComandoSQL {
-        public:
-                ComandoAtualizarTeste(Teste);
+class ComandoAtualizarTeste : public ComandoSQL
+{
+public:
+        ComandoAtualizarTeste(Teste);
 };
 
-//Classe ComandoAtualizarCasoTeste
+// Classe ComandoAtualizarCasoTeste
 
-class ComandoAtualizarCasoTeste:public ComandoSQL {
-        public:
-                ComandoAtualizarCasoTeste(CasoTeste);
+class ComandoAtualizarCasoTeste : public ComandoSQL
+{
+public:
+        ComandoAtualizarCasoTeste(CasoTeste);
 };
 
 //------------------------------------- Deletar -----------------------------------------
 
-//Classe ComandoDeletarDesenvolvedor
+// Classe ComandoDeletarDesenvolvedor
 
-class ComandoDeletarDesenvolvedor: public ComandoSQL {
-        public:
-                ComandoDeletarDesenvolvedor(Matricula);
+class ComandoDeletarDesenvolvedor : public ComandoSQL
+{
+public:
+        ComandoDeletarDesenvolvedor(Matricula);
 };
 
-//Classe ComandoDeletarTeste
+// Classe ComandoDeletarTeste
 
-class ComandoDeletarTeste: public ComandoSQL {
-        public:
-                ComandoDeletarTeste(Codigo);
+class ComandoDeletarTeste : public ComandoSQL
+{
+public:
+        ComandoDeletarTeste(Codigo);
 };
 
-//Classe ComandoDeletarCasoTeste
+// Classe ComandoDeletarCasoTeste
 
-class ComandoDeletarCasoTeste: public ComandoSQL {
-        public:
-                ComandoDeletarCasoTeste(Codigo);
+class ComandoDeletarCasoTeste : public ComandoSQL
+{
+public:
+        ComandoDeletarCasoTeste(Codigo);
 };
